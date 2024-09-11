@@ -109,19 +109,21 @@ setTimeout(() => {
   firstStepBtn.innerHTML = `<div class="stepsWrapper">
         <button id="prevStep"> Prev</button>
         <button id="nextStep"> Next</button>
+        <button id="submitBtn"> Get in Touch</button>
     </div>`;
 
   const stepsTop = document.createElement('div');
   stepsTop.classList.add('stepsTop');
-  stepsTop.innerHTML = `<div class="step1 active">1</div>
-  <div class="step2">2</div>
-  <div class="step3">3</div>`;
+  stepsTop.innerHTML = `<div class="step1 active"><p>1</p></div>
+  <div class="step2"><p>2</p></div>
+  <div class="step3"><p>3</p></div>`;
 
   formWrapper.appendChild(firstStepBtn);
   formWrapper.prepend(stepsTop);
 
   if (formFieldsFull[2].style.display == 'none') {
     document.getElementById('prevStep').style.display = 'none';
+    document.getElementById('submitBtn').style.display = 'none';
   }
 
   const firstNameInput = document.getElementById(
@@ -133,6 +135,7 @@ setTimeout(() => {
 
   const nextStepBtn = document.getElementById('nextStep');
   const prevStepBtn = document.getElementById('prevStep');
+  const submitBtn = document.getElementById('submitBtn');
 
   //form Check Input
   function isEmpty(str) {
@@ -218,12 +221,16 @@ setTimeout(() => {
 
   nextStepBtn.addEventListener('click', function () {
     prevStepBtn.style.display = 'block';
-    nextStepBtn.innerHTML = 'Submit';
+    nextStepBtn.style.display = 'none';
+    submitBtn.style.display = 'block';
     document.querySelector('.step2').classList.add('active');
-    document.querySelector('.step1').innerHTML =
-      '1<span class="checkMark">✔</span>';
 
     barGrow(document.querySelector('.step2'));
+
+    setTimeout(function () {
+      document.querySelector('.step1 p').innerHTML =
+        '1<span class="checkMark">✔</span>';
+    }, 500);
 
     formFieldsFull[0].style.display = 'none';
     formFieldsFull[1].style.display = 'none';
@@ -234,8 +241,9 @@ setTimeout(() => {
 
   prevStepBtn.addEventListener('click', function () {
     prevStepBtn.style.display = 'none';
-    nextStepBtn.innerHTML = 'Next';
-    document.querySelector('.step1').innerHTML = '1';
+    nextStepBtn.style.display = 'block';
+    submitBtn.style.display = 'none';
+    document.querySelector('.step1 p').innerHTML = '1';
 
     barReturn(document.querySelector('.step2.active'));
 
@@ -245,4 +253,31 @@ setTimeout(() => {
     formFieldsFull[0].style.display = 'block';
     formFieldsFull[1].style.display = 'block';
   });
-}, 1500);
+
+  submitBtn.addEventListener('click', function () {
+    prevStepBtn.style.display = 'none';
+    submitBtn.style.display = 'none';
+    document.querySelector('.step3').classList.add('active');
+
+    document.querySelector('.step2 p').innerHTML =
+      '2<span class="checkMark">✔</span>';
+
+    barGrow(document.querySelector('.step3'));
+
+    setTimeout(function () {
+      document.querySelector('.step3 p').innerHTML =
+        '3<span class="checkMark">✔</span>';
+    }, 500);
+
+    formFieldsFull[2].style.display = 'none';
+    formFieldsFull[3].style.display = 'none';
+    formFieldsFull[4].style.display = 'none';
+
+    const thankYouMsg = document.createElement('div');
+    thankYouMsg.classList.add('thank-you-msg');
+    thankYouMsg.innerHTML = `<h4>Your Message was Received!</h4>
+      <p>Thank you for contacting Conversion. We will get in touch as soon as possible!</p>
+    `;
+    formWrapper.appendChild(thankYouMsg);
+  });
+}, 1000);
