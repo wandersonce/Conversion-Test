@@ -95,6 +95,7 @@ async function getPokemonData() {
       perPage: 4,
       perMove: 4,
       pagination: false,
+      drag: false,
       breakpoints: {
         810: {
           perPage: 2,
@@ -103,6 +104,7 @@ async function getPokemonData() {
         640: {
           perPage: 1,
           perMove: 1,
+          drag: true,
         },
       },
       gap: '20px',
@@ -130,6 +132,41 @@ async function getPokemonData() {
       });
     }
 
+    //Handle Slider QTY counter
+    const slidersQty = pokemonInfoArray.length;
+    const getSlidersShown =
+      document.getElementsByClassName('is-visible').length;
+
+    const totalSlidersScroll = slidersQty / getSlidersShown;
+
+    const arrowNext = document.querySelector('.splide__arrow--next');
+    const arrowPrev = document.querySelector('.splide__arrow--prev');
+
+    var totalClicked = 1;
+
+    const sliderCounterWrapper = document.querySelector('.sliderCounter');
+    sliderCounterWrapper.innerHTML = totalClicked + ' / ' + totalSlidersScroll;
+
+    arrowNext.addEventListener('click', function () {
+      if (totalClicked === totalSlidersScroll) {
+        totalClicked = 1;
+      } else {
+        totalClicked++;
+      }
+      sliderCounterWrapper.innerHTML =
+        totalClicked + ' / ' + totalSlidersScroll;
+    });
+
+    arrowPrev.addEventListener('click', function () {
+      if (totalClicked === 1) {
+        totalClicked = totalSlidersScroll;
+      } else {
+        totalClicked--;
+      }
+      sliderCounterWrapper.innerHTML =
+        totalClicked + ' / ' + totalSlidersScroll;
+    });
+
     return allPokemonsInfo;
   } catch (error) {
     console.error(error.message);
@@ -145,6 +182,7 @@ stickyContainer.classList.add('stickyContainer');
 stickyContainer.innerHTML = `<div class="drawerWrapper">
       <div>
         <p>Conversion Pokedex</p>
+        <div class="sliderCounter"></div>
         <span class="chevronIcon">&#8250;</span>
       </div>
     </div>

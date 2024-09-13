@@ -10,7 +10,7 @@ ctaSection.innerHTML = `<div>
       <h2>Hello Conversion!</h2>
       <p>Click on the button below to Contact Us!</p>
       <div>
-        <button id="modalControl"> <span>Click Here</span></button>
+        <button id="modalControl"> <span class="btnOverlay"></span><span>Click Here</span></button>
       </div>
     </div>`;
 

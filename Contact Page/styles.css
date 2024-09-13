@@ -40,13 +40,13 @@ body:after {
 
 .cta-section button {
   position: relative;
-  background-color: #4caf50;
+  background-color: #366638;
   border: 2px solid #000;
-  border-width: 2px 0 2px 0;
-  padding: 8px 25px;
+  padding: 10px 25px;
   cursor: pointer;
   transition: background 0.2s;
   z-index: 1;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.4);
 }
 .cta-section button:after {
   content: '';
@@ -59,49 +59,81 @@ body:after {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  border: 2px solid #000;
-  border-width: 0 2px 0 2px;
+  
 }
 
 .cta-section button:before {
   content: '';
   position: absolute;
   background-color: #4caf50;
-  width: 94%;
-  height: 120%;
+  width: 96%;
+  height: 130%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
   border: 2px solid #000;
-  border-width: 2px 0 2px 0;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.4);
 }
 
-.cta-section button span {
+.cta-section button > span:last-child {
   position: relative;
   font-weight: bold;
   color: #fff;
   z-index: 5;
 }
 
-.cta-section button:hover {
-  background-color: #000;
+.btnOverlay:before{
+  content: '';
+  position:absolute;
+  width: 103%;
+  height: 100%;
+  top:0;
+  left:-2px;
+  background-color: rgba(65, 130, 68,0.4);
 }
 
-.cta-section button:focus {
-  padding: 8px 18px;
+.btnOverlay{
+  content: '';
+  position:absolute;
+  width: 95%;
+  height: 100%;
+  top:0;
+  left:3px;
+  background-color: #4caf50; 
+  z-index:4;
+}
+
+ .cta-section button:hover .btnOverlay:before{
+  background-color: rgba(65, 130, 68,0.6);
+}
+
+.cta-section button:focus, .cta-section button:focus:before {
   border: 2px solid blue;
 }
 
-.cta-section button:disabled {
+.cta-section button:disabled .btnOverlay:before{
   cursor: default;
   background-color: #636363;
 }
 
-.cta-section button:active {
-  background-color: #000;
-  box-shadow: 0 -8px -16px 0 rgba(0, 0, 0, 0.2),
-    0 -6px -20px 0 rgba(0, 0, 0, 0.19);
+.cta-section button:disabled:before, 
+.cta-section button:disabled:after,
+.cta-section button:disabled{
+  cursor: default;
+  border-color:gray;
+  background-color: #636363 !important;
+  box-shadow: none;
+}
+
+.cta-section button:active .btnOverlay:before{
+  background-color:  #4caf50; 
+} 
+
+.cta-section button:active:before, 
+.cta-section button:active:after,
+.cta-section button:active{
+  box-shadow: none;
 }
 
 /* CONTACT FORM MODAL */
